@@ -1,0 +1,43 @@
+name: Deploy app
+on:
+  push:
+    branches:
+      - main-temp
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install Heroku Cli and Login
+        env:
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+            HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
+        run: |
+          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+          echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
+      
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Deploy
+        env:
+          SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }} # Token from the Partner Dashboard
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }} # .env content after a deploy
+        run:  | 
+          npm run config:change-prod
+          npm run deploy -- -f --source-control-url "$COMMIT_URL"
+          
+      - name: Heroku Deploy
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku git:remote -a $HEROKU_APP_NAME
+          git push heroku main
+        

@@ -1,0 +1,1 @@
+# Shopify App Template - Remix - Heroku - GitHub Actions
