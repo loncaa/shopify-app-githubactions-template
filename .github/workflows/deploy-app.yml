@@ -24,12 +24,5 @@ jobs:
         env:
             COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
-          cat ~/.netrc
-          git remote -v
-          git config --global user.name loncaa
-          git config --global user.email antonio@example.com
-          git fetch
-          git checkout main
-          git commit --allow-empty -a -m "$COMMIT_URL"
           git push --force heroku main:main
         
