@@ -36,5 +36,10 @@ jobs:
           curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
           echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
           heroku git:remote -a $HEROKU_APP_NAME
-          git push heroku main 
+          git config --global user.name loncaa
+          git config --global user.email antonio@example.com
+          git fetch
+          git checkout main
+          git commit --allow-empty -a -m "$COMMIT_URL"
+          git push --force heroku main:main 
         
