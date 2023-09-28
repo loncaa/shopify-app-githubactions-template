@@ -31,10 +31,12 @@ jobs:
             HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
             HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
+            COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
           curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
           echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
           heroku git:remote -a $HEROKU_APP_NAME
-          git remote -v
+          git add .
+          git commit -a -m"$COMMIT_URL"
           git push heroku main
         
