@@ -13,6 +13,7 @@ jobs:
             fetch-depth: 0
       - name: Install Heroku CLI
         env:
+          HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
           HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
@@ -21,7 +22,6 @@ jobs:
           heroku git:remote -a $HEROKU_APP_NAME
       - name: Deploy Heroku Webapp
         env:
-            HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
             COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
           cat ~/.netrc
