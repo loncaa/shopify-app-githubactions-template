@@ -12,10 +12,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: yarn
       
       - name: Install Shopify dependency
-        run: npm install -g shopify
+        run: yarn install shopify
 
       - name: Deploy Shopify App and Extensions
         env:
@@ -23,8 +23,8 @@ jobs:
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
           SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
         run:  | 
-          npm run config:use production
-          npm run deploy -- -f --source-control-url "$COMMIT_URL"
+          yarn run config:use production
+          yarn run deploy -- -f --source-control-url "$COMMIT_URL"
 
       - name: Install Heroku CLI
         env:
@@ -45,5 +45,5 @@ jobs:
           git fetch
           git checkout main
           git commit --allow-empty -a -m "$COMMIT_URL"
-          git push --force heroku main:main 
+          git push --force heroku main:main
         
