@@ -19,9 +19,9 @@ jobs:
 
       - name: Deploy Shopify App and Extensions
         env:
-          SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }} # Token from the Partner Dashboard
+          SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }} 
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
-          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }} # .env content after a deploy
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
         run:  | 
           npm run config:use production
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
@@ -39,6 +39,6 @@ jobs:
           git config user.email "antonio@example.com"
           git config user.name "loncaa"
           git add .
-          git commit -a -m"$COMMIT_URL"
-          git push heroku main
+          git commit --allow-empty -a -m"$COMMIT_URL"
+          git push heroku main 
         
