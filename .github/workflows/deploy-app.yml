@@ -13,7 +13,7 @@ jobs:
             fetch-depth: 0
       - name: Install Shopify dependency
         run: |
-          npm install -g shopify
+          npm install shopify
       - name: Deploy Shopify App and Extensions
         env:
           SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }} 
