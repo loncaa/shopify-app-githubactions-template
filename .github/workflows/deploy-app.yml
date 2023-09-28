@@ -11,10 +11,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
             fetch-depth: 0
-      
       - name: Install Shopify dependency
-        run: npm install -g shopify
-
+        run: |
+          npm install -g shopify
       - name: Deploy Shopify App and Extensions
         env:
           SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }} 
@@ -23,7 +22,6 @@ jobs:
         run:  | 
           npm run config:use production
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
-
       - name: Install Heroku CLI
         env:
           HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
