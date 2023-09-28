@@ -2,7 +2,7 @@
 
 name = "template-app-test"
 client_id = "5d447b1b0763e93b1207a066ef31658a"
-application_url = "https://messenger-jewelry-coordinates-annotation.trycloudflare.com"
+application_url = "https://githubactions-testing-7398102ef6c3.herokuapp.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://messenger-jewelry-coordinates-annotation.trycloudflare.com/auth/callback",
-  "https://messenger-jewelry-coordinates-annotation.trycloudflare.com/auth/shopify/callback",
-  "https://messenger-jewelry-coordinates-annotation.trycloudflare.com/api/auth/callback"
+  "https://githubactions-testing-7398102ef6c3.herokuapp.com/auth/callback",
+  "https://githubactions-testing-7398102ef6c3.herokuapp.com/auth/shopify/callback",
+  "https://githubactions-testing-7398102ef6c3.herokuapp.com/api/auth/callback"
 ]
 
 [webhooks]
