@@ -8,14 +8,12 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
         with:
-          node-version: 18
-          cache: 'yarn'
+            fetch-depth: 0
       
       - name: Install Shopify dependency
-        run: yarn global add shopify
+        run: npm install -g shopify
 
       - name: Deploy Shopify App and Extensions
         env:
@@ -23,8 +21,8 @@ jobs:
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
           SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
         run:  | 
-          yarn run config:use production
-          yarn run deploy -- -f --source-control-url "$COMMIT_URL"
+          npm run config:use production
+          npm run deploy -- -f --source-control-url "$COMMIT_URL"
 
       - name: Install Heroku CLI
         env:
