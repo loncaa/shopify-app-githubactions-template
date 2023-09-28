@@ -2,7 +2,7 @@ name: Deploy app
 on:
   push:
     branches:
-      - main-temp
+      - main
 jobs:
   deploy:
     name: Deploy
@@ -23,4 +23,3 @@ jobs:
           echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
           heroku info githubactions-testing
       
-        
