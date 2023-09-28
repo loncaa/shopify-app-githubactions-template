@@ -13,15 +13,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-
-      - name: Install Heroku Cli and Login
-        env:
-            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-            HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
-        run: |
-          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-          echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
-          heroku info githubactions-testing
       
       - name: Install npm dependencies
         run: npm install
@@ -34,11 +25,15 @@ jobs:
         run:  | 
           npm run config:use production
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
-          
-      - name: Deploy Shopify App Frontend to Heroku
+        
+      - name: Install Heroku Cli and Deploy
         env:
-          HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
+            HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
+            HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+            HEROKU_LOGIN_EMAIL: ${{ secrets.HEROKU_LOGIN_EMAIL }}
         run: |
+          curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+          echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
           heroku git:remote -a $HEROKU_APP_NAME
           git remote -v
           git push heroku main
