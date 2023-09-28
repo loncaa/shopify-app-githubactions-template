@@ -29,12 +29,12 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
           echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
+          heroku git:remote -a $HEROKU_APP_NAME
       - name: Deploy Heroku Webapp
         env:
             HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
             COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
-          heroku git:remote -a $HEROKU_APP_NAME
           git remote -v
           git config --global user.name loncaa
           git config --global user.email antonio@example.com
