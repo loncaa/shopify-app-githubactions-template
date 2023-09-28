@@ -32,7 +32,7 @@ jobs:
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
           SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }} # .env content after a deploy
         run:  | 
-          npm run config:change-prod
+          npm run config:use production
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
           
       - name: Deploy Shopify App Frontend to Heroku
@@ -40,5 +40,6 @@ jobs:
           HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
         run: |
           heroku git:remote -a $HEROKU_APP_NAME
+          git remote -v
           git push heroku main
         

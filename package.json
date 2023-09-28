@@ -11,8 +11,6 @@
     "deploy": "shopify app deploy",
     "deploy:reset": "shopify app deploy --reset",
     "config:use": "shopify app config use",
-    "config:change-dev": "shopify app dev --config development",
-    "config:change-prod": "shopify app dev --config production",
     "env": "shopify app env",
     "start": "remix-serve build",
     "docker-start": "prisma migrate deploy && remix-serve build",
