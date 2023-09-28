@@ -26,7 +26,7 @@ jobs:
           npm run config:use production
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
         
-      - name: Install Heroku Cli and Deploy Apps Frontend
+      - name: Install Heroku Cli and Deploy App Frontend
         env:
             HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME }}
             HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -36,9 +36,5 @@ jobs:
           curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
           echo -e 'machine api.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password $HEROKU_API_KEY\nmachine git.heroku.com\n login $HEROKU_LOGIN_EMAIL\n password  $HEROKU_API_KEY' >> ~/.netrc
           heroku git:remote -a $HEROKU_APP_NAME
-          git config user.email "antonio@example.com"
-          git config user.name "loncaa"
-          git add .
-          git commit --allow-empty -a -m"$COMMIT_URL"
           git push heroku main 
         
