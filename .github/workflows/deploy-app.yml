@@ -15,7 +15,7 @@ jobs:
           cache: yarn
       
       - name: Install Shopify dependency
-        run: yarn install shopify
+        run: yarn add shopify
 
       - name: Deploy Shopify App and Extensions
         env:
