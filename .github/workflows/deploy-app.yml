@@ -35,5 +35,5 @@ jobs:
         env:
             COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
-          git push --force heroku main:main
+          git push --force heroku main:main 
         
