@@ -21,6 +21,7 @@ jobs:
           SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
         run:  | 
           npm run config:use production
+          npm run config:push -- -f --source-control-url "$COMMIT_URL"
           npm run deploy -- -f --source-control-url "$COMMIT_URL"
       - name: Install Heroku CLI
         env:
